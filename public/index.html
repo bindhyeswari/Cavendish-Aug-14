@@ -16,6 +16,49 @@
                 <small>Create a contact list ... </small>
             </div>
         </div>
+        <section>
+            <header>
+                <h2>Upload File</h2>
+            </header>
+            <div>
+                    <input type="file" multiple/>
+            </div>
+        </section>
     </section>
+
+    <script>
+
+        function makeAjaxCall() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', '/contacts');
+            xhr.addEventListener('readystatechange', function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                }
+            });
+            xhr.send();
+        }
+
+        // register a handler for a change to the input file
+        var input_element = document.querySelector('input[type="file"]');
+
+        input_element.addEventListener('change', function () {
+            console.log(input_element.files);
+
+            // build a formdata object
+            var formdata = new FormData();
+            for (var i = 0; i < input_element.files.length; i++) {
+                formdata.append('info', input_element.files[i]);
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', '/files/upload');
+            xhr.send(formdata);
+            // pass it to the back end
+
+        });
+
+    </script>
 </body>
 </html>
