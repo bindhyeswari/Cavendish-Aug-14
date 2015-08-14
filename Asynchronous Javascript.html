@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Async Javascript</title>
+</head>
+<body>
+
+<script>
+
+    var start = new Date();
+    // make an ajax call
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', 'http://api.github.com/search/repositories?q=nodejs'); // method, url
+    xhr.addEventListener('readystatechange', function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            console.log(response);
+        }
+    });
+    xhr.send();
+
+    // console log
+    console.log('request is complete ... ', (new Date()) - start + 'ms');
+
+</script>
+</body>
+</html>
