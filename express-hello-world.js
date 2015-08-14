@@ -6,8 +6,8 @@ var express = require('express');
 var math = require('./modules/Math'); // path to the js file
 console.log(math.sqrt(10));
 
-var contacts_router = require('./modules/contacts'); //
-
+var contacts_router = require('./routes/contacts');
+var files_router = require('./routes/files');
 
 var app = express();
 
@@ -22,6 +22,7 @@ app.get('/string', function (req, res) {
 // pass all requests that are made to the /contacts to the contacts.js file
 
 app.use('/contacts', contacts_router);
+app.use('/files', files_router);
 
 
 app.listen(3000);
